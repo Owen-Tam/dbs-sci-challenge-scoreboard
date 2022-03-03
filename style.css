@@ -2,13 +2,14 @@
   margin: 0;
   padding: 0;
   background: #f9f9f9;
+  box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
 .main {
   padding-top: 50px;
   display: flex;
   flex-direction: column;
-  gap: 150px;
+  gap: 15vh;
 }
 
 .logo {
@@ -119,10 +120,17 @@
   margin-left: 30px;
   margin-right: 40px;
   cursor: pointer;
+  transition: background 200ms;
 }
-
+.add-team:hover {
+  background: #b6b6b6;
+}
 .del-team {
   padding: 9px 23px;
   border: solid 2px #cfcfcf;
   cursor: pointer;
+  transition: background 200ms;
+}
+.del-team:hover {
+  background: #b6b6b61f;
 }
