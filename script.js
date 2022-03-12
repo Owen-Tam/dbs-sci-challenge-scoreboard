@@ -76,36 +76,36 @@ subTeamBtn.addEventListener("click", () => {
   document.querySelector(".box-cont").lastElementChild.remove();
 });
 
-const hourInput = document.querySelector(".hour-input");
-const minInput = document.querySelector(".min-input");
+const hourInput = document.querySelector(".min-input");
+const minInput = document.querySelector(".sec-input");
 const timerBtnsCont = document.querySelector(".timer-btns");
 
 // const startBtn = document.querySelector(".start");
 // const pauseBtn = document.querySelector(".pause");
 // const resetBtn = document.querySelector(".reset");
 let timer;
-let OGhours, OGmins;
-let mins, hours;
+let OGmins, OGsecs;
+let secs, mins;
 let ticking = false;
 timerBtnsCont.addEventListener("click", e => {
   const buttonClicked = e.target.closest(".timer-btn");
   if (!buttonClicked) return;
   const tick = function () {
-    mins = Number(minInput.value);
-    hours = Number(hourInput.value);
-    if (hours === 0 && mins === 0) {
+    secs = Number(minInput.value);
+    mins = Number(hourInput.value);
+    if (mins === 0 && secs === 0) {
       clearInterval(timer);
       return;
     }
-    mins--;
+    secs--;
 
-    if (mins < 0) {
-      mins = 59;
-      hours--;
+    if (secs < 0) {
+      secs = 59;
+      mins--;
     }
-    hourInput.value = String(hours).padStart(2, "0");
-    minInput.value = String(mins).padStart(2, "0");
-    if (hours === 0 && mins === 0) {
+    hourInput.value = String(mins).padStart(2, "0");
+    minInput.value = String(secs).padStart(2, "0");
+    if (mins === 0 && secs === 0) {
       clearInterval(timer);
       ticking = false;
       const audio = new Audio("explosion.mp3");
@@ -116,8 +116,8 @@ timerBtnsCont.addEventListener("click", e => {
 
   if (buttonClicked.classList.contains("start")) {
     if (!ticking) {
-      OGmins = Number(minInput.value);
-      OGhours = Number(hourInput.value);
+      OGsecs = Number(minInput.value);
+      OGmins = Number(hourInput.value);
       timer = setInterval(tick, 1000);
       ticking = true;
     }
@@ -141,7 +141,7 @@ timerBtnsCont.addEventListener("click", e => {
   if (buttonClicked.classList.contains("reset")) {
     ticking = false;
     clearInterval(timer);
-    hourInput.value = String(OGhours).padStart(2, "0");
-    minInput.value = String(OGmins).padStart(2, "0");
+    hourInput.value = String(OGmins).padStart(2, "0");
+    minInput.value = String(OGsecs).padStart(2, "0");
   }
 });
