@@ -6,7 +6,7 @@
   font-family: "Poppins", sans-serif;
 }
 h2 {
-  position: absolute;
+  position: fixed;
   color: rgba(0, 0, 0, 0.274);
   bottom: 20px;
   right: 30px;
@@ -24,8 +24,12 @@ h2 {
   font-weight: bold;
   text-align: center;
 }
-
 .mid {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.box-cont {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -124,12 +128,14 @@ h2 {
   justify-content: flex-start;
   align-items: center;
   padding-bottom: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 30px;
 }
 
 .add-team {
   padding: 9px 23px;
   background: #cfcfcf;
-  margin-left: 30px;
   margin-right: 40px;
   cursor: pointer;
   transition: background 200ms;
@@ -145,4 +151,47 @@ h2 {
 }
 .del-team:hover {
   background: #b6b6b61f;
+}
+.timer {
+  display: flex;
+  font-size: 5rem;
+  background-color: #e6e6e6;
+}
+.timer-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+.timer-cont textarea {
+  border: none;
+  background-color: #e6e6e6;
+  height: 8rem;
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  resize: none;
+  font-size: 5rem;
+}
+.timer-cont button {
+  padding: 9px 23px;
+  background: #cfcfcf;
+  cursor: pointer;
+  border: none;
+  transition: background 200ms;
+  font-size: 1rem;
+}
+.timer-cont button:hover {
+  background: #b6b6b6;
+}
+.timer-btns {
+  display: flex;
+  gap: 1rem;
+}
+button {
+  user-select: none;
+  -webkit-user-select: none; /*Safari*/
+  -moz-user-select: none; /*Firefox*/
 }
