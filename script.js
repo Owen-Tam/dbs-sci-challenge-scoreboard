@@ -98,7 +98,36 @@ timerBtnsCont.addEventListener("click", e => {
       return;
     }
     secs--;
-
+    const flash = async function (el) {
+      el.style.display = "block";
+      await setTimeout(() => {
+        el.style.display = "none";
+      }, 500);
+      await setTimeout(() => {
+        el.style.display = "block";
+      }, 1000);
+      await setTimeout(() => {
+        el.style.display = "none";
+      }, 1500);
+      await setTimeout(() => {
+        el.style.display = "block";
+      }, 2000);
+      await setTimeout(() => {
+        el.style.display = "none";
+      }, 2500);
+      await setTimeout(() => {
+        el.style.display = "block";
+      }, 3000);
+      await setTimeout(() => {
+        el.style.display = "none";
+      }, 3500);
+      await setTimeout(() => {
+        el.style.display = "block";
+      }, 4000);
+      await setTimeout(() => {
+        el.style.display = "none";
+      }, 4500);
+    };
     if (secs < 0) {
       secs = 59;
       mins--;
@@ -108,8 +137,10 @@ timerBtnsCont.addEventListener("click", e => {
     if (mins === 0 && secs === 0) {
       clearInterval(timer);
       ticking = false;
+
       const audio = new Audio("explosion.mp3");
       audio.play();
+      flash(document.querySelector(".overlay"));
       return;
     }
   };

@@ -195,3 +195,14 @@ button {
   -webkit-user-select: none; /*Safari*/
   -moz-user-select: none; /*Firefox*/
 }
+.overlay {
+  background-color: rgba(255, 0, 0, 0.226);
+  position: fixed;
+  display: none;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 3;
+}
