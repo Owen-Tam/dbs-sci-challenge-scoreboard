@@ -40,7 +40,7 @@ h2 {
 .box {
   display: flex;
   align-items: center;
-  gap: 3.5vw;
+  gap: 1.5vw;
   justify-content: center;
 }
 
@@ -94,11 +94,11 @@ h2 {
   place-items: center;
   display: grid;
   color: white;
-  font-size: 1.5rem;
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+  font-size: 20px;
 }
 .num {
   background: white;
