@@ -4,7 +4,7 @@ const addTeamBtn = document.querySelector(".add-team");
 const subTeamBtn = document.querySelector(".del-team");
 const addNum = function (e) {
   const markToChange = Number(
-    e.target.parentElement.querySelector(".num").value
+    e.target.closest(".box").querySelector(".num").value
   );
   const oldMark = Number(
     e.target.closest(".box").querySelector(".teammark").textContent
@@ -13,7 +13,24 @@ const addNum = function (e) {
   e.target.closest(".box").querySelector(".teammark").textContent =
     newMark.padStart(3, "0");
 };
-
+const add = function (e, num) {
+  const markToChange = num;
+  const oldMark = Number(
+    e.target.closest(".box").querySelector(".teammark").textContent
+  );
+  const newMark = String(oldMark + markToChange);
+  e.target.closest(".box").querySelector(".teammark").textContent =
+    newMark.padStart(3, "0");
+};
+const sub = function (e, num) {
+  const markToChange = -num;
+  const oldMark = Number(
+    e.target.closest(".box").querySelector(".teammark").textContent
+  );
+  const newMark = String(oldMark + markToChange);
+  e.target.closest(".box").querySelector(".teammark").textContent =
+    newMark.padStart(3, "0");
+};
 const subNum = function (e) {
   const markToChange = Number(
     e.target.parentElement.querySelector(".num").value
@@ -25,72 +42,64 @@ const subNum = function (e) {
   e.target.closest(".box").querySelector(".teammark").textContent =
     newMark.padStart(3, "0");
 };
-
-const add30 = function (e) {
-  const markToChange = Number(30);
-  const oldMark = Number(
-    e.target.closest(".box").querySelector(".teammark").textContent
-  );
-  const newMark = String(oldMark + markToChange);
-  e.target.closest(".box").querySelector(".teammark").textContent =
-    newMark.padStart(3, "0");
-};
-
-const add20 = function (e) {
-  const markToChange = Number(20);
-  const oldMark = Number(
-    e.target.closest(".box").querySelector(".teammark").textContent
-  );
-  const newMark = String(oldMark + markToChange);
-  e.target.closest(".box").querySelector(".teammark").textContent =
-    newMark.padStart(3, "0");
-};
-
-const add10 = function (e) {
-  const markToChange = Number(10);
-  const oldMark = Number(
-    e.target.closest(".box").querySelector(".teammark").textContent
-  );
-  const newMark = String(oldMark + markToChange);
-  e.target.closest(".box").querySelector(".teammark").textContent =
-    newMark.padStart(3, "0");
-};
-
-const sub10 = function (e) {
-  const markToChange = Number(10);
-  const oldMark = Number(
-    e.target.closest(".box").querySelector(".teammark").textContent
-  );
-  const newMark = String(oldMark - markToChange);
-  e.target.closest(".box").querySelector(".teammark").textContent =
-    newMark.padStart(3, "0");
-};
-
-const sub20 = function (e) {
-  const markToChange = Number(20);
-  const oldMark = Number(
-    e.target.closest(".box").querySelector(".teammark").textContent
-  );
-  const newMark = String(oldMark - markToChange);
-  e.target.closest(".box").querySelector(".teammark").textContent =
-    newMark.padStart(3, "0");
-};
+console.log(localStorage.getItem("teamsData"));
+let teamsData = JSON.parse(localStorage.getItem("teamsData"));
+if (!teamsData) {
+  teamsData = {
+    teams: [
+      {
+        score: 0,
+        teamName: "Team 1",
+      },
+      {
+        score: 0,
+        teamName: "Team 2",
+      },
+    ],
+  };
+}
+console.log(teamsData.teams);
+teamsData.teams.forEach((team, i) => {
+  const html = `
+  <div class="box" data-num="${i + 1}">
+    <div class="boxup">
+      <textarea class="teamname">${team.teamName}</textarea>
+      <div class="teammark">${String(team.score).padStart(3, "0")}</div>
+    </div>
+    <div class="boxdown">
+      <div class="add10 add btn">+10</div>
+      <div class="add20 add btn">+20</div>
+      <div class="add30 add btn">+30</div>
+    </div>
+    <div class="boxdown">
+      <div class="add btn">+</div>
+      <input type="num" class="num" value="20"></input>
+      <div class="sub btn" >-</div>
+    </div>
+    <div class="boxdown">
+      <div class="sub10 sub btn" >-10</div>
+      <div class="sub20 sub btn" >-20</div>
+    </div>
+</div>
+  `;
+  boxCont.insertAdjacentHTML("beforeend", html);
+});
 
 const handleClick = function (e) {
   if (!e.target.classList.contains("btn")) return;
   if (e.target.closest(".sub10")) {
-    sub10(e);
+    sub(e, 10);
   } else if (e.target.closest(".sub20")) {
-    sub20(e);
-  } else if (e.target.closest(".add10")) {
-    add10(e);
-  } else if (e.target.closest(".add20")) {
-    add20(e);
+    sub(e, 20);
+  } else if (e.target.closest(".add15")) {
+    add(e, 15);
+  } else if (e.target.closest(".add25")) {
+    add(e, 25);
   } else if (e.target.closest(".add30")) {
-    add30(e);
+    add(e, 30);
   } else if (e.target.closest(".add")) {
     const markToChange = Number(
-      e.target.parentElement.querySelector(".num").value
+      e.target.closest(".box").querySelector(".num").value
     );
     if (Number.isNaN(markToChange) || !markToChange) {
       alert("You can only add or subtract numbers from the score!");
@@ -107,9 +116,16 @@ const handleClick = function (e) {
     }
     subNum(e);
   }
+  const box = e.target.closest(".box");
+  const newScore = box.querySelector(".teammark").textContent;
+  const newName = box.querySelector(".teamname").value;
+  const teamNo = box.dataset.num;
+  teamsData.teams[teamNo - 1].score = Number(newScore);
+  teamsData.teams[teamNo - 1].teamName = newName;
+  localStorage.setItem("teamsData", JSON.stringify(teamsData));
 };
 
-boxCont.addEventListener("click", e => handleClick(e));
+boxCont.addEventListener("click", (e) => handleClick(e));
 addTeamBtn.addEventListener("click", () => {
   const num =
     Number(document.querySelector(".box-cont").lastElementChild.dataset.num) +
@@ -118,6 +134,7 @@ addTeamBtn.addEventListener("click", () => {
     alert("5 is the max number of teams.");
     return;
   }
+  teamsData.teams.push({ score: 0, teamName: `Team ${num}` });
   const html = `<div class="box" data-num="${num}">
                   <div class="boxup">
                     <textarea class="teamname">Team 1</textarea>
@@ -128,7 +145,7 @@ addTeamBtn.addEventListener("click", () => {
                     <div class="add20 add btn">+20</div>
                     <div class="add30 add btn">+30</div>
                   </div>
-                  <div class="boxdown">
+                  <div class="boxdown manual">
                     <div class="add btn">+</div>
                     <input type="num" class="num" value="20"></input>
                     <div class="sub btn" >-</div>
@@ -162,7 +179,7 @@ let timer;
 let OGmins, OGsecs;
 let secs, mins;
 let ticking = false;
-timerBtnsCont.addEventListener("click", e => {
+timerBtnsCont.addEventListener("click", (e) => {
   const buttonClicked = e.target.closest(".timer-btn");
   if (!buttonClicked) return;
   const tick = function () {
@@ -196,12 +213,6 @@ timerBtnsCont.addEventListener("click", e => {
       await setTimeout(() => {
         el.style.display = "none";
       }, 3500);
-      await setTimeout(() => {
-        el.style.display = "block";
-      }, 4000);
-      await setTimeout(() => {
-        el.style.display = "none";
-      }, 4500);
     };
     if (secs < 0) {
       secs = 59;
@@ -265,7 +276,8 @@ let timer2;
 let OGmins2, OGsecs2;
 let secs2, mins2;
 let ticking2 = false;
-timerBtnsCont2.addEventListener("click", e => {
+
+timerBtnsCont2.addEventListener("click", (e) => {
   const buttonClicked2 = e.target.closest(".timer-btn2");
   if (!buttonClicked2) return;
   const tick2 = function () {
@@ -299,12 +311,6 @@ timerBtnsCont2.addEventListener("click", e => {
       await setTimeout(() => {
         el.style.display = "none";
       }, 3500);
-      await setTimeout(() => {
-        el.style.display = "block";
-      }, 4000);
-      await setTimeout(() => {
-        el.style.display = "none";
-      }, 4500);
     };
     if (secs2 < 0) {
       secs2 = 59;
@@ -332,16 +338,16 @@ timerBtnsCont2.addEventListener("click", e => {
     }
   }
 
-  if (buttonClicked2.classList.contains("pause")) {
+  if (buttonClicked2.classList.contains("pause2")) {
     if (ticking2) {
       ticking2 = false;
       clearInterval(timer2);
-      document.querySelector(".pause").textContent = "Resume";
+      document.querySelector(".pause2").textContent = "Resume";
       return;
     }
     if (!ticking2) {
       ticking2 = true;
-      document.querySelector(".pause").textContent = "Pause";
+      document.querySelector(".pause2").textContent = "Pause";
       timer2 = setInterval(tick2, 1000);
       return;
     }
