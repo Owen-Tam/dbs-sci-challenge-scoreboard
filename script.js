@@ -59,38 +59,41 @@ if (!teamsData) {
   };
 }
 console.log(teamsData.teams);
-teamsData.teams.forEach((team, i) => {
-  const html = `
-  <div class="box" data-num="${i + 1}">
-    <div class="boxup">
-      <textarea class="teamname">${team.teamName}</textarea>
-      <div class="teammark">${String(team.score).padStart(3, "0")}</div>
-    </div>
-    <div class="boxdown">
-      <div class="add10 add btn">+10</div>
-      <div class="add20 add btn">+20</div>
-      <div class="add30 add btn">+30</div>
-    </div>
-    <div class="boxdown">
-      <div class="add btn">+</div>
-      <input type="num" class="num" value="20"></input>
-      <div class="sub btn" >-</div>
-    </div>
-    <div class="boxdown">
-      <div class="sub10 sub btn" >-10</div>
-      <div class="sub20 sub btn" >-20</div>
-    </div>
-</div>
-  `;
+const addTeam = function (num, teamName, score) {
+  const processedScore = String(score).padStart(3, "0");
+  console.log(processedScore, teamName);
+  const html = `<div class="box" data-num="${num}">
+  <div class="boxup">
+    <textarea class="teamname">${teamName}</textarea>
+    <div class="teammark">${processedScore}</div>
+  </div>
+  <div class="boxdown">
+    <div class="add15 add btn">+15</div>
+    <div class="add25 add btn">+25</div>
+    <div class="add30 add btn">+30</div>
+  </div>
+  <div class="boxdown manual">
+    <div class="add btn">+</div>
+    <input type="num" class="num" value="20"></input>
+    <div class="sub btn" >-</div>
+  </div>
+  <div class="boxdown">
+    <div class="sub10 sub btn" >-10</div>
+    <div class="sub15 sub btn" >-15</div>
+  </div>
+</div>`;
   boxCont.insertAdjacentHTML("beforeend", html);
+};
+teamsData.teams.forEach((team, i) => {
+  addTeam(i + 1, team.teamName, team.score);
 });
 
 const handleClick = function (e) {
   if (!e.target.classList.contains("btn")) return;
   if (e.target.closest(".sub10")) {
     sub(e, 10);
-  } else if (e.target.closest(".sub20")) {
-    sub(e, 20);
+  } else if (e.target.closest(".sub15")) {
+    sub(e, 15);
   } else if (e.target.closest(".add15")) {
     add(e, 15);
   } else if (e.target.closest(".add25")) {
@@ -127,37 +130,16 @@ const handleClick = function (e) {
 
 boxCont.addEventListener("click", (e) => handleClick(e));
 addTeamBtn.addEventListener("click", () => {
-  const num =
-    Number(document.querySelector(".box-cont").lastElementChild.dataset.num) +
-    1;
-  if (num > 5) {
-    alert("5 is the max number of teams.");
+  const num = teamsData.teams.length + 1;
+  Number(document.querySelector(".box-cont").lastElementChild.dataset.num) + 1;
+  console.log(num);
+  if (num >= 4) {
+    alert("3 is the max number of teams.");
     return;
   }
+  addTeam(num, `Team ${num}`, 0);
   teamsData.teams.push({ score: 0, teamName: `Team ${num}` });
   localStorage.setItem("teamsData", JSON.stringify(teamsData));
-
-  const html = `<div class="box" data-num="${num}">
-                  <div class="boxup">
-                    <textarea class="teamname">Team 1</textarea>
-                    <div class="teammark">000</div>
-                  </div>
-                  <div class="boxdown">
-                    <div class="add10 add btn">+10</div>
-                    <div class="add20 add btn">+20</div>
-                    <div class="add30 add btn">+30</div>
-                  </div>
-                  <div class="boxdown manual">
-                    <div class="add btn">+</div>
-                    <input type="num" class="num" value="20"></input>
-                    <div class="sub btn" >-</div>
-                  </div>
-                  <div class="boxdown">
-                    <div class="sub10 sub btn" >-10</div>
-                    <div class="sub20 sub btn" >-20</div>
-                  </div>
-                </div>`;
-  boxCont.insertAdjacentHTML("beforeend", html);
 });
 subTeamBtn.addEventListener("click", () => {
   if (
@@ -180,7 +162,8 @@ const timerBtnsCont = document.querySelector(".timer-btns");
 // const pauseBtn = document.querySelector(".pause");
 // const resetBtn = document.querySelector(".reset");
 let timer;
-let OGmins, OGsecs;
+let OGmins = hourInput.value,
+  OGsecs = minInput.value;
 let secs, mins;
 let ticking = false;
 timerBtnsCont.addEventListener("click", (e) => {
@@ -277,7 +260,8 @@ const timerBtnsCont2 = document.querySelector(".timer-btns2");
 // const pauseBtn = document.querySelector(".pause");
 // const resetBtn = document.querySelector(".reset");
 let timer2;
-let OGmins2, OGsecs2;
+let OGmins2 = hourInput2.value,
+  OGsecs2 = minInput2.value;
 let secs2, mins2;
 let ticking2 = false;
 
