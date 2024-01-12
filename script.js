@@ -135,6 +135,8 @@ addTeamBtn.addEventListener("click", () => {
     return;
   }
   teamsData.teams.push({ score: 0, teamName: `Team ${num}` });
+  localStorage.setItem("teamsData", JSON.stringify(teamsData));
+
   const html = `<div class="box" data-num="${num}">
                   <div class="boxup">
                     <textarea class="teamname">Team 1</textarea>
@@ -166,6 +168,8 @@ subTeamBtn.addEventListener("click", () => {
     return;
   }
   document.querySelector(".box-cont").lastElementChild.remove();
+  teamsData.teams.pop();
+  localStorage.setItem("teamsData", JSON.stringify(teamsData));
 });
 
 const hourInput = document.querySelector(".min-input");
