@@ -68,9 +68,9 @@ const addTeam = function (num, teamName, score) {
     <div class="teammark">${processedScore}</div>
   </div>
   <div class="boxdown">
-    <div class="add15 add btn">+15</div>
-    <div class="add25 add btn">+25</div>
+    <div class="add20 add btn">+20</div>
     <div class="add30 add btn">+30</div>
+    <div class="add40 add btn">+40</div>
   </div>
   <div class="boxdown manual">
     <div class="add btn">+</div>
@@ -94,12 +94,12 @@ const handleClick = function (e) {
     sub(e, 10);
   } else if (e.target.closest(".sub15")) {
     sub(e, 15);
-  } else if (e.target.closest(".add15")) {
-    add(e, 15);
-  } else if (e.target.closest(".add25")) {
-    add(e, 25);
+  } else if (e.target.closest(".add20")) {
+    add(e, 20);
   } else if (e.target.closest(".add30")) {
     add(e, 30);
+  } else if (e.target.closest(".add40")) {
+    add(e, 40);
   } else if (e.target.closest(".add")) {
     const markToChange = Number(
       e.target.closest(".box").querySelector(".num").value
