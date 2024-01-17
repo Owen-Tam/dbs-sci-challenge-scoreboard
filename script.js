@@ -217,6 +217,7 @@ timerBtnsCont.addEventListener("click", (e) => {
     if (mins === 0 && secs === 0) {
       clearInterval(timer);
       ticking = false;
+      setColor(timerClicked, hourInput, minInput, "hsl(5, 100%, 75%)");
 
       const audio2 = new Audio("ping.mp3");
       audio2.play();
@@ -327,6 +328,7 @@ timerBtnsCont2.addEventListener("click", (e) => {
     if (mins2 === 0 && secs2 === 0) {
       clearInterval(timer2);
       ticking2 = false;
+      setColor(timerClicked, hourInput2, minInput2, "hsl(5, 100%, 75%)");
 
       const audio2 = new Audio("ping.mp3");
       audio2.play();
