@@ -166,9 +166,16 @@ let OGmins = hourInput.value,
   OGsecs = minInput.value;
 let secs, mins;
 let ticking = false;
+const setColor = (timerClicked, hourInput, minInput, color) => {
+  timerClicked.style.backgroundColor = color;
+  hourInput.style.backgroundColor = color;
+  minInput.style.backgroundColor = color;
+};
 timerBtnsCont.addEventListener("click", (e) => {
   const buttonClicked = e.target.closest(".timer-btn");
   if (!buttonClicked) return;
+  const timerClicked = e.target.closest(".timer-box")?.querySelector(".timer");
+  if (!timerClicked) return;
   const tick = function () {
     secs = Number(minInput.value);
     mins = Number(hourInput.value);
@@ -224,6 +231,8 @@ timerBtnsCont.addEventListener("click", (e) => {
       OGmins = Number(hourInput.value);
       timer = setInterval(tick, 1000);
       ticking = true;
+      document.querySelector(".pause").textContent = "Pause";
+      setColor(timerClicked, hourInput, minInput, "hsl(110, 100%, 75%)");
     }
   }
 
@@ -232,12 +241,16 @@ timerBtnsCont.addEventListener("click", (e) => {
       ticking = false;
       clearInterval(timer);
       document.querySelector(".pause").textContent = "Resume";
+      setColor(timerClicked, hourInput, minInput, "hsl(50, 100%, 75%)");
+
       return;
     }
     if (!ticking) {
       ticking = true;
       document.querySelector(".pause").textContent = "Pause";
       timer = setInterval(tick, 1000);
+      setColor(timerClicked, hourInput, minInput, "hsl(110, 100%, 75%)");
+
       return;
     }
   }
@@ -247,6 +260,7 @@ timerBtnsCont.addEventListener("click", (e) => {
     clearInterval(timer);
     hourInput.value = String(OGmins).padStart(2, "0");
     minInput.value = String(OGsecs).padStart(2, "0");
+    setColor(timerClicked, hourInput, minInput, "white");
   }
 });
 
@@ -268,6 +282,10 @@ let ticking2 = false;
 timerBtnsCont2.addEventListener("click", (e) => {
   const buttonClicked2 = e.target.closest(".timer-btn2");
   if (!buttonClicked2) return;
+  console.log(e.target);
+  const timerClicked = e.target.closest(".timer-box")?.querySelector(".timer");
+  if (!timerClicked) return;
+
   const tick2 = function () {
     secs2 = Number(minInput2.value);
     mins2 = Number(hourInput2.value);
@@ -323,6 +341,9 @@ timerBtnsCont2.addEventListener("click", (e) => {
       OGmins2 = Number(hourInput.value);
       timer2 = setInterval(tick2, 1000);
       ticking2 = true;
+      document.querySelector(".pause2").textContent = "Pause";
+
+      setColor(timerClicked, hourInput2, minInput2, "hsl(110, 100%, 75%)");
     }
   }
 
@@ -331,12 +352,15 @@ timerBtnsCont2.addEventListener("click", (e) => {
       ticking2 = false;
       clearInterval(timer2);
       document.querySelector(".pause2").textContent = "Resume";
+      setColor(timerClicked, hourInput2, minInput2, "hsl(50, 100%, 75%)");
       return;
     }
     if (!ticking2) {
       ticking2 = true;
       document.querySelector(".pause2").textContent = "Pause";
       timer2 = setInterval(tick2, 1000);
+      setColor(timerClicked, hourInput2, minInput2, "hsl(110, 100%, 75%)");
+
       return;
     }
   }
@@ -346,5 +370,6 @@ timerBtnsCont2.addEventListener("click", (e) => {
     clearInterval(timer2);
     hourInput2.value = String(OGmins2).padStart(2, "0");
     minInput2.value = String(OGsecs2).padStart(2, "0");
+    setColor(timerClicked, hourInput2, minInput2, "white");
   }
 });
