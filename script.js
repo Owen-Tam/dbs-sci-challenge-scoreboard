@@ -218,7 +218,7 @@ timerBtnsCont.addEventListener("click", (e) => {
       clearInterval(timer);
       ticking = false;
 
-      const audio2 = new Audio("alarm.mp3");
+      const audio2 = new Audio("ping.mp3");
       audio2.play();
       flash(document.querySelector(".overlay"));
       return;
@@ -328,7 +328,7 @@ timerBtnsCont2.addEventListener("click", (e) => {
       clearInterval(timer2);
       ticking2 = false;
 
-      const audio2 = new Audio("alarm.mp3");
+      const audio2 = new Audio("ping.mp3");
       audio2.play();
       flash(document.querySelector(".overlay"));
       return;
