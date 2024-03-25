@@ -16,12 +16,9 @@ h2 {
 .main {
   padding-top: 50px;
   display: grid;
-  gap: 5vh;
-  display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 10px;
-  grid-template-rows: 3.5fr 1fr;
-  row-gap: 5vh;
+  grid-template-rows: 3fr 1fr;
   height: 100%;
 }
 
