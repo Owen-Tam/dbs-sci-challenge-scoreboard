@@ -69,8 +69,8 @@ const addTeam = function (num, teamName, score) {
   </div>
   <div class="boxdown">
     <div class="add10 add btn">+10</div>
-    <div class="add15 add btn">+15</div>
-    <div class="add30 add btn">+30</div>
+    <div class="add80 add btn">+80</div>
+    <div class="add120 add btn">+120</div>
   </div>
   <div class="boxdown manual">
     <div class="add btn">+</div>
@@ -79,8 +79,8 @@ const addTeam = function (num, teamName, score) {
   </div>
   <div class="boxdown">
     <div class="sub10 sub btn">-10</div>
-    <div class="sub15 sub btn">-15</div>
-    <div class="sub30 sub btn">-30</div>
+    <div class="sub40 sub btn">-40</div>
+    <div class="sub50 sub btn">-50</div>
 
   </div>
 </div>`;
@@ -92,15 +92,15 @@ teamsData.teams.forEach((team, i) => {
 
 const handleClick = function (e) {
   if (!e.target.classList.contains("btn")) return;
-  if (e.target.closest(".sub30")) {
-    sub(e, 30);
-  } else if (e.target.closest(".sub15")) {
-    sub(e, 15);
+  if (e.target.closest(".sub50")) {
+    sub(e, 50);
+  } else if (e.target.closest(".sub40")) {
+    sub(e, 40);
   } else if (e.target.closest(".sub10")) {
     sub(e, 10);
-  } else if (e.target.closest(".add15")) {
+  } else if (e.target.closest(".add80")) {
     add(e, 15);
-  } else if (e.target.closest(".add30")) {
+  } else if (e.target.closest(".add120")) {
     add(e, 30);
   } else if (e.target.closest(".add10")) {
     add(e, 10);
@@ -137,10 +137,10 @@ addTeamBtn.addEventListener("click", () => {
   const num = teamsData.teams.length + 1;
   Number(document.querySelector(".box-cont").lastElementChild.dataset.num) + 1;
   console.log(num);
-  if (num >= 4) {
-    alert("3 is the max number of teams.");
-    return;
-  }
+  // if (num >= 4) {
+  //   alert("3 is the max number of teams.");
+  //   return;
+  // }
   addTeam(num, `Team ${num}`, 0);
   teamsData.teams.push({ score: 0, teamName: `Team ${num}` });
   localStorage.setItem("teamsData", JSON.stringify(teamsData));
