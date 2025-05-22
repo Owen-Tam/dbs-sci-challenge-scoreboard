@@ -99,9 +99,9 @@ const handleClick = function (e) {
   } else if (e.target.closest(".sub10")) {
     sub(e, 10);
   } else if (e.target.closest(".add80")) {
-    add(e, 15);
+    add(e, 80);
   } else if (e.target.closest(".add120")) {
-    add(e, 30);
+    add(e, 120);
   } else if (e.target.closest(".add10")) {
     add(e, 10);
   } else if (e.target.closest(".add")) {
